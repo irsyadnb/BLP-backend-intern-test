@@ -53,17 +53,14 @@ class AuthService {
     };
   }
 
-  async register(
-    email: string,
-    username: string,
-    fullname: string,
-    password: string
-  ) {
-    const hashedPassword = await hash(password, await genSalt());
+  async register(email: string, username: string, password: string | null) {
+    let hashedPassword = password;
+
+    if(password) hashedPassword = await hash(password, await genSalt());
+    
     await this.userModel.create({
       email: email,
       username: username,
-      full_name: fullname,
       password: hashedPassword,
     });
   }

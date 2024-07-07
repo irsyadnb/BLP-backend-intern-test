@@ -9,15 +9,25 @@ import jwt from "jsonwebtoken";
 import { Model } from "sequelize";
 
 class AuthHelper {
-  static createAccessToken = (user: Model) => {
-    return jwt.sign({ user_id: user.getDataValue("user_id") }, jwtAccessToken, {
-      expiresIn: jwtAccessTokenExpiration,
-    });
+  static createAccessToken = (user: Model | any) => {
+    return jwt.sign(
+      {
+        user_id: user.getDataValue("user_id"),
+        username: user.getDataValue("username"),
+      },
+      jwtAccessToken,
+      {
+        expiresIn: jwtAccessTokenExpiration,
+      }
+    );
   };
 
-  static createRefreshToken = (user: Model) => {
+  static createRefreshToken = (user: Model | any) => {
     return jwt.sign(
-      { user_id: user.getDataValue("user_id") },
+      {
+        user_id: user.getDataValue("user_id"),
+        username: user.getDataValue("username"),
+      },
       jwtRefreshToken,
       {
         expiresIn: jwtRefreshTokenExpiration,
