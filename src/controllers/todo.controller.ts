@@ -27,15 +27,15 @@ class TodoController {
   async createTodo(req: Request, res: Response) {
     const { title } = req.body;
     const user_id = res.locals.user.user_id;
-    
-    let image_url = '';
-    let file_url = '';
+
+    let image_url = "";
+    let file_url = "";
     if (Array.isArray(req.files)) {
       const imageFile = req.files[0];
-      const otherFile = req.files[1] ?? ''
+      const otherFile = req.files[1] ?? "";
 
-      image_url = imageFile ? imageFile.filename : ''
-      file_url =  otherFile ? otherFile.filename : ''
+      image_url = imageFile ? imageFile.filename : "";
+      file_url = otherFile ? otherFile.filename : "";
     }
 
     const todo = await this.todoService.createTodo(
@@ -54,8 +54,18 @@ class TodoController {
   }
 
   async updateTodo(req: Request, res: Response) {
-    const { title, content, isDone, image_url, file_url } = req.body;
+    const { title, isDone } = req.body;
     const { todo_id } = req.params;
+
+    let image_url = "";
+    let file_url = "";
+    if (Array.isArray(req.files)) {
+      const imageFile = req.files[0];
+      const otherFile = req.files[1] ?? "";
+
+      image_url = imageFile ? imageFile.filename : "";
+      file_url = otherFile ? otherFile.filename : "";
+    }
 
     await this.todoService.updateTodoByID(
       todo_id,
