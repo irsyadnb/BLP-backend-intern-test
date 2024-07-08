@@ -33,7 +33,7 @@ npx sequelize-cli db:migrate
 6. The server will running on `http://localhost:4444`
 7. To shut down the app, run
 ```bash
-    docker-compose down
+docker-compose down
 ```
 8. Ensure that the Docker Daemon is running
 
