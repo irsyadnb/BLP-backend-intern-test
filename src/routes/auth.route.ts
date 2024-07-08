@@ -5,6 +5,8 @@ import ValidationMiddleware from "../middlewares/validation.middleware";
 import { authorizationUrl } from "../googleOAuth";
 import GoogleAuthController from "../controllers/googleAuth.controller";
 import GoogleAuthService from "../services/googleAuth.service";
+import AuthMiddleware from "../middlewares/auth.middleware";
+import { loginSchema, registerSchema } from "../dtos/auth.dto";
 
 class AuthRoute {
   public router = Router();
@@ -27,17 +29,22 @@ class AuthRoute {
     );
     this.router.post(
       "/login",
+      ValidationMiddleware.validate(loginSchema),
       ValidationMiddleware.exceptionGuard(this.authController.login)
     );
     this.router.post(
       "/register",
+      ValidationMiddleware.validate(registerSchema),
       ValidationMiddleware.exceptionGuard(this.authController.register)
     );
     this.router.post(
       "/refresh-token",
       ValidationMiddleware.exceptionGuard(this.authController.refreshToken)
     );
-    // this.router.post('/logout')
+    this.router.post('/logout',
+      AuthMiddleware.authenticateToken,
+      ValidationMiddleware.exceptionGuard(this.authController.logout)
+    )
   }
 }
 

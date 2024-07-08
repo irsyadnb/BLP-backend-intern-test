@@ -5,6 +5,7 @@ import TodoService from "../services/todo.service";
 import TodoController from "../controllers/todo.controller";
 import ValidationMiddleware from "../middlewares/validation.middleware";
 import AuthMiddleware from "../middlewares/auth.middleware";
+import { todoSchema } from "../dtos/todo.dto";
 
 class TodoRoute {
   public router = Router();
@@ -64,6 +65,7 @@ class TodoRoute {
       "/todo",
       AuthMiddleware.authenticateToken,
       ValidationMiddleware.fileHandler(this.uploadFile),
+      ValidationMiddleware.validate(todoSchema),
       ValidationMiddleware.exceptionGuard(this.todoController.createTodo)
     );
 
@@ -71,6 +73,7 @@ class TodoRoute {
       "/todo/:todo_id",
       AuthMiddleware.authenticateToken,
       ValidationMiddleware.fileHandler(this.uploadFile),
+      ValidationMiddleware.validate(todoSchema),
       ValidationMiddleware.exceptionGuard(this.todoController.updateTodo)
     );
 
