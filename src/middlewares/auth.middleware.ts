@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { HttpStatusCode } from "../constants/http.enum";
 import { HttpException } from "../exceptions/http.exception";
 import { jwtAccessToken } from "../configs/jwt";
+import { ResponseHelper } from "../helpers/response.helper";
 
 class AuthMiddleware {
   static authenticateToken(req: Request, res: Response, next: NextFunction) {
@@ -30,7 +31,12 @@ class AuthMiddleware {
         next();
       });
     } catch (error) {
-      console.error(error);
+      return ResponseHelper.responseError(
+        res,
+        HttpStatusCode.InternalServerError,
+        "Internal Server Errors",
+        error as object
+      );
     }
   }
 }

@@ -1,4 +1,4 @@
-import { User } from "../../sequelize/sequelize";
+import { User } from "../../sequelize/models";
 
 class UserService {
   private userModel = User;

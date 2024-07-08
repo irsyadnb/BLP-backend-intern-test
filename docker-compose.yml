@@ -9,13 +9,18 @@ services:
     ports:
       - 4444:4444
     depends_on:
-      - postgresdb
+      postgresdb:
+        condition: service_healthy
     networks:
       - blp-backend
   postgresdb:
     container_name: blp-backend-db
-    hostname: blp-backend-db
     image: postgres:13
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 10s
+      timeout: 3s
+      retries: 5
     env_file:
       - .env
     ports:

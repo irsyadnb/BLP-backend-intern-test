@@ -6,7 +6,7 @@ import { HttpStatusCode } from "../constants/http.enum";
 import { HttpException } from "../exceptions/http.exception";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { jwtRefreshToken } from "../configs/jwt";
-import { User } from "../../sequelize/sequelize";
+import { User } from "../../sequelize/models";
 
 class AuthService {
   private userService: UserService;
@@ -27,7 +27,7 @@ class AuthService {
     }
     const isValidPassword = await compare(
       password,
-      user.getDataValue("password")
+      user.getDataValue("password") as string
     );
     if (!isValidPassword) {
       throw new HttpException(
@@ -45,7 +45,6 @@ class AuthService {
         user_id: user.getDataValue("user_id"),
         username: user.getDataValue("username"),
         email: user.getDataValue("email"),
-        full_name: user.getDataValue("full_name"),
       },
       token: {
         accessToken,
@@ -53,11 +52,15 @@ class AuthService {
     };
   }
 
-  async register(email: string, username: string, password: string | null) {
+  async register(
+    email: string,
+    username: string,
+    password: string | undefined
+  ) {
     let hashedPassword = password;
 
-    if(password) hashedPassword = await hash(password, await genSalt());
-    
+    if (password) hashedPassword = await hash(password, await genSalt());
+
     await this.userModel.create({
       email: email,
       username: username,
