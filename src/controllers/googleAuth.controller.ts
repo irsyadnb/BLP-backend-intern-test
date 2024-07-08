@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import GoogleAuthService from "../services/googleAuth.service";
 import { ResponseHelper } from "../helpers/response.helper";
-import { HttpStatusCode } from "axios";
+import { HttpStatusCode } from "../constants/http.enum";
 
 class GoogleAuthController {
   constructor(private googleAuthService: GoogleAuthService) {

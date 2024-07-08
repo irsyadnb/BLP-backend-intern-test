@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { HttpException } from "../exceptions/http.exception";
-import { HttpStatusCode } from "axios";
+import { HttpStatusCode } from "../constants/http.enum";
 
 class lib {
   static deleteFile(filename: string) {
