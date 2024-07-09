@@ -1,6 +1,14 @@
 # BLP-backend-intern-skill-test
 
-This is a basic Todo List application for fulfilling BLP Skill Test - Backend Developer Intern
+This is a basic Todo List application for fulfilling BLP Skill Test - Backend Developer Intern.
+
+## Features
+* User authentication with JWT
+* Google OAuth for social login
+* CRUD operations for todo items with image and file uploads (asumption image and pdf files only)
+* Secure password storage using bcrypt
+* Sequelize ORM for database interactions
+* TypeScript for type safety and better developer experience
 
 ## Tech Stacks
 1. Docker
@@ -43,3 +51,6 @@ https://documenter.getpostman.com/view/33392168/2sA3e2eUR2
 
 ## Entity Relationship Diagram
 ![BLP-Backend-Intern-Test-ERD drawio](https://github.com/irsyadnb/BLP-backend-intern-test/assets/56458931/11de1194-256d-415b-8575-404d7fa1b25e)
+
+## Copyright
+Irsyad Nurwidianto Basuki - 2024
