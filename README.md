@@ -49,6 +49,12 @@ docker-compose down
 Here are the API Documentation:
 https://documenter.getpostman.com/view/33392168/2sA3e2eUR2
 
+
+### Google OAuth
+You can sign in using Google OAuth:
+* Method: GET
+* URL : http://localhost:4444/api/v1/auth/google
+
 ## Entity Relationship Diagram
 ![BLP-Backend-Intern-Test-ERD drawio](https://github.com/irsyadnb/BLP-backend-intern-test/assets/56458931/11de1194-256d-415b-8575-404d7fa1b25e)
 
